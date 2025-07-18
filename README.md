@@ -1,6 +1,6 @@
-# 🛎️ USD News & Holiday Reminder EA
+# 🛎️ USD Red News Reminder EA
 
-An MQL5 Expert Advisor for MetaTrader 5 that scans today’s US economic calendar and sends reminders for USD high-impact (“red”) and holiday (“gray”) events every 30 minutes.
+An MQL5 Expert Advisor for MetaTrader 5 that scans **today and tomorrow’s** US economic calendar and sends reminders for **high-impact USD news events** (a.k.a. “red news”) every 30 minutes.
 
 ---
 
@@ -15,57 +15,58 @@ An MQL5 Expert Advisor for MetaTrader 5 that scans today’s US economic calenda
 
 ## 🚀 Key Features
 
-- ✅ Hourly scan of today’s USD events  
-- ✅ Filters high-impact (red) & holiday (gray) events  
-- ✅ Tracks new events; auto-removes past ones  
-- ✅ Reminders every 30 minutes until each event  
-- ✅ Configurable `ReminderIntervalMinutes`  
+- ✅ Hourly scan of USD events for **next 2 days**  
+- ✅ Filters **only high-impact (red)** events  
+- ✅ Tracks new events; auto-removes expired ones  
+- ✅ Reminders every X minutes (`ReminderIntervalMinutes`)  
+- ✅ Configurable `DaysAhead` and reminder interval  
 
 ---
 
 ## 📊 Reminder Logic
 
-1. Once per hour call `CalendarValueHistory` for today  
-2. Filter where `currency=="USD"` and `importance==HIGH` or `NONE`  
+1. Every hour: call `CalendarValueHistory()` from `today` to `DaysAhead`  
+2. Filter events where `currency == "USD"` and `importance == HIGH`  
 3. Add unseen events to a `tracked` array  
-4. On each tick remove past events; if ≥ `ReminderIntervalMinutes` since last alert, send Alert & update timestamp  
+4. On each tick:  
+   - Remove past events  
+   - If time since `lastAlert` ≥ `ReminderIntervalMinutes`, send `Alert()` & update `lastAlert`
 
 ---
 
 ## 🗂 Included File
 
-| File                       | Description                         |
-|----------------------------|-------------------------------------|
-| `USDNewsReminder.mq5`      | EA source code for USD calendar alerts |
+| File                       | Description                                |
+|----------------------------|--------------------------------------------|
+| `USDRedNewsReminder.mq5`   | EA source code for USD red news alerts     |
 
 ---
 
 ## 🛠️ Setup Instructions
 
-1. Copy `USDNewsReminder.mq5` → `MQL5/Experts` folder  
+1. Copy `USDRedNewsReminder.mq5` → `MQL5/Experts` folder  
 2. Open MetaEditor and compile  
-3. In MT5 Navigator drag EA onto any chart  
+3. In MT5 Navigator, drag EA onto any chart (including BTC or weekend charts)  
 4. Enable **Algo Trading**  
 
 ---
 
 ## ⏰ When to Run
 
-Attach at any time; EA runs continuously (24/5), scanning hourly and alerting per tick.
+Attach to any chart, any time. EA runs continuously, scanning every hour and alerting as needed.
 
 ---
 
 ## 🎯 Future Improvements
 
-- Push/email/mobile notifications  
-- Persist tracked list across MT5 restarts  
-- Filter by event keywords or sources  
-- On-chart status panel  
+- Push/email/mobile alerts  
+- Configurable event keywords or filters  
+- Log alerts to a CSV file  
+- On-chart status dashboard  
 
 ---
 
 ## 📝 License & Acknowledgments
 
 - © 2025 **Neo Malesa** · [@n30dyn4m1c on X](https://www.x.com/n30dyn4m1c)  
-- Built with 💗 for automated desktop trading  
-  
+- Built with 💗 for automated economic event awareness in trading  
