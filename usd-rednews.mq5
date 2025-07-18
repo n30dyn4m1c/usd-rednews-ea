@@ -24,7 +24,7 @@ datetime     lastScan=0;
 int OnInit()
 {
    ArrayResize(tracked, 0);
-   Print("USD News & Holiday Reminder EA Initialized.");
+   Print("USD Red News Reminder EA Initialized.");
    return(INIT_SUCCEEDED);
 }
 
